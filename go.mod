@@ -3,10 +3,13 @@ module go_service
 go 1.18
 
 require (
+	github.com/google/uuid v1.1.2
 	github.com/labstack/echo/v4 v4.7.2
 	github.com/spf13/viper v1.12.0
+	gopkg.in/guregu/null.v3 v3.5.0
 	gorm.io/driver/postgres v1.3.7
 	gorm.io/gorm v1.23.5
+	gorm.io/plugin/soft_delete v1.1.0
 )
 
 require (

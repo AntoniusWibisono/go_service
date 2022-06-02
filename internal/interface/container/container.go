@@ -2,13 +2,15 @@ package container
 
 import (
 	"go_service/internal/infrastructure/psql/database"
+	"go_service/internal/infrastructure/psql/repositories"
+	"go_service/internal/interface/usecase/comment"
 	"go_service/internal/shared/config"
 	"go_service/internal/shared/constants"
 )
 
 type Container struct {
 	Config         *config.Config
-	ProductService product.Service
+	CommentService comment.Service
 }
 
 func NewContainer(conf *config.Config) *Container {
@@ -22,6 +24,6 @@ func NewContainer(conf *config.Config) *Container {
 
 	return &Container{
 		Config:         conf,
-		ProductService: product.NewService(dbRepo, dbRepo),
+		CommentService: comment.NewService(dbRepo, dbRepo),
 	}
 }
