@@ -1,0 +1,19 @@
+{
+    "name": "SE - Technical Assessment",
+    "version": "0.0.1",
+    "address": "0.0.0.0",
+    "httpPort": 8082,
+    "env": "local",
+    "database": {
+      "username": "root",
+      "password": "secret",
+      "name": "db_test_xendit",
+      "host": "localhost",
+      "schema": "public",
+      "port": 5433,
+      "maxIdleConnections": 10,
+      "maxOpenConnections": 100,
+      "debugMode": true
+    }
+  }
+  
