@@ -52,17 +52,21 @@ func (s *service) GetMemberByOrgName(sess *utils.Session, request *MemberRequest
 
 }
 
-func (s *service) DeleteComments(sess *utils.Session, request *CommentRequest) (response Comment, err error) {
+func (s *service) DeleteComments(sess *utils.Session, request *CommentRequest) (response BasicResponse, err error) {
 	organization, err := s.orgsRepo.GetOrganizationData(request.OrganizationName)
 
 	if err != nil {
 		return
 	}
 
-	comment, err := s.commentRepo.SoftDeleteCommentData(organization.ID)
+	err = s.commentRepo.SoftDeleteCommentData(organization.ID)
 
-	response = Comment{
-		Comment: comment.Comment,
+	if err != nil {
+		return
+	}
+
+	response = BasicResponse{
+		Message: "organization comments deleted",
 	}
 
 	return

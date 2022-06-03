@@ -36,36 +36,6 @@ func (_m *CommentsRepository) GetCommentByOrganizationId(organizationId string) 
 	return r0, r1
 }
 
-// GetListComments provides a mock function with given fields: searchBy, searchValue, sortBy, sortType, page, perPage
-func (_m *CommentsRepository) GetListComments(searchBy string, searchValue string, sortBy string, sortType string, page int64, perPage int64) ([]domain.Comments, int64, error) {
-	ret := _m.Called(searchBy, searchValue, sortBy, sortType, page, perPage)
-
-	var r0 []domain.Comments
-	if rf, ok := ret.Get(0).(func(string, string, string, string, int64, int64) []domain.Comments); ok {
-		r0 = rf(searchBy, searchValue, sortBy, sortType, page, perPage)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]domain.Comments)
-		}
-	}
-
-	var r1 int64
-	if rf, ok := ret.Get(1).(func(string, string, string, string, int64, int64) int64); ok {
-		r1 = rf(searchBy, searchValue, sortBy, sortType, page, perPage)
-	} else {
-		r1 = ret.Get(1).(int64)
-	}
-
-	var r2 error
-	if rf, ok := ret.Get(2).(func(string, string, string, string, int64, int64) error); ok {
-		r2 = rf(searchBy, searchValue, sortBy, sortType, page, perPage)
-	} else {
-		r2 = ret.Error(2)
-	}
-
-	return r0, r1, r2
-}
-
 // PostNewComment provides a mock function with given fields: organizationId, memberId, comment
 func (_m *CommentsRepository) PostNewComment(organizationId string, memberId string, comment string) (domain.Comments, error) {
 	ret := _m.Called(organizationId, memberId, comment)
@@ -88,24 +58,17 @@ func (_m *CommentsRepository) PostNewComment(organizationId string, memberId str
 }
 
 // SoftDeleteCommentData provides a mock function with given fields: organizationId
-func (_m *CommentsRepository) SoftDeleteCommentData(organizationId string) (domain.Comments, error) {
+func (_m *CommentsRepository) SoftDeleteCommentData(organizationId string) error {
 	ret := _m.Called(organizationId)
 
-	var r0 domain.Comments
-	if rf, ok := ret.Get(0).(func(string) domain.Comments); ok {
+	var r0 error
+	if rf, ok := ret.Get(0).(func(string) error); ok {
 		r0 = rf(organizationId)
 	} else {
-		r0 = ret.Get(0).(domain.Comments)
+		r0 = ret.Error(0)
 	}
 
-	var r1 error
-	if rf, ok := ret.Get(1).(func(string) error); ok {
-		r1 = rf(organizationId)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
+	return r0
 }
 
 type NewCommentsRepositoryT interface {

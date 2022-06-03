@@ -20,8 +20,7 @@ type Comments struct {
 }
 
 type CommentsRepository interface {
-	GetListComments(searchBy, searchValue, sortBy, sortType string, page, perPage int64) (comments []Comments, count int64, err error)
 	GetCommentByOrganizationId(organizationId string) (comments []Comments, err error)
 	PostNewComment(organizationId, memberId, comment string) (comments Comments, err error)
-	SoftDeleteCommentData(organizationId string) (comments Comments, err error)
+	SoftDeleteCommentData(organizationId string) (err error)
 }

@@ -91,12 +91,8 @@ func Test_DeleteComments(t *testing.T) {
 		Name: "mockOrganization",
 	}
 
-	var result = domain.Comments{
-		Comment: "mock comment",
-	}
-
 	OrgsRepo.On("GetOrganizationData", mock.Anything).Return(organization, nil)
-	CommentsRepo.On("SoftDeleteCommentData", mock.Anything).Return(result, nil)
+	CommentsRepo.On("SoftDeleteCommentData", mock.Anything).Return(nil)
 
 	service := NewService(nil, nil, nil)
 
@@ -108,7 +104,7 @@ func Test_DeleteComments(t *testing.T) {
 		OrganizationName: "mockOrganization",
 	})
 
-	assert.Equal(t, result.Comment, res.Comment)
+	assert.Equal(t, "organization comments deleted", res.Message)
 	assert.NoError(t, err)
 
 }

@@ -52,3 +52,7 @@ type MemberRequest struct {
 type ListMemberResponse struct {
 	Members []Member `json:"members"`
 }
+
+type BasicResponse struct {
+	Message string `json:"message"`
+}
