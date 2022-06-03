@@ -6,7 +6,6 @@ type Organization struct {
 
 type Member struct {
 	Username  string `json:"username"`
-	Password  string `json:"password"`
 	AvatarUrl string `json:"avatarUrl"`
 	Followers int64  `json:"followers"`
 	Following int64  `json:"following"`
@@ -44,4 +43,12 @@ type PostCommentRequest struct {
 	OrganizationName string `json:"organizationName"`
 	MemberId         string `json:"memberId"`
 	Comment          string `json:"comment"`
+}
+
+type MemberRequest struct {
+	OrganizationName string `json:"organizationName"`
+}
+
+type ListMemberResponse struct {
+	Members []Member `json:"members"`
 }

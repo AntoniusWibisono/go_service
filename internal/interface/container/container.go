@@ -24,6 +24,6 @@ func NewContainer(conf *config.Config) *Container {
 
 	return &Container{
 		Config:         conf,
-		CommentService: comment.NewService(dbRepo, dbRepo),
+		CommentService: comment.NewService(dbRepo, dbRepo, dbRepo),
 	}
 }

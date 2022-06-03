@@ -18,6 +18,24 @@ func NewSubmissionHandler(com comment.Service) *CommentHandler {
 	}
 }
 
+func (h *CommentHandler) GetMembersByOrganizationNameHandler(ctx echo.Context) (err error) {
+	var sess = ctx.Get(constants.AppSessionRequest).(*utils.Session)
+	var request = new(comment.MemberRequest)
+	request.OrganizationName = ctx.Param("org-name")
+
+	if err = ctx.Bind(request); err != nil {
+		return sess.ResponseInvalidRequest(ctx, err.Error())
+	}
+
+	comment, err := h.commentService.GetMemberByOrgName(sess, request)
+	if err != nil {
+		return sess.ResponseInternalError(ctx, err.Error())
+	}
+
+	response := utils.CreateHttpResponse(constants.StatusOK, "get member data success!", comment)
+	return sess.ResponseOK(ctx, response)
+}
+
 func (h *CommentHandler) DeleteCommentHandler(ctx echo.Context) (err error) {
 	var sess = ctx.Get(constants.AppSessionRequest).(*utils.Session)
 	var request = new(comment.CommentRequest)
@@ -70,26 +88,6 @@ func (h *CommentHandler) GetCommentByOrganizationNameHandler(ctx echo.Context) (
 		return sess.ResponseInternalError(ctx, err.Error())
 	}
 
-	response := utils.CreateHttpResponse(constants.StatusOK, "get data success!", comment)
+	response := utils.CreateHttpResponse(constants.StatusOK, "get comment data success!", comment)
 	return sess.ResponseOK(ctx, response)
 }
-
-// func (h *CommentHandler) ListCommentHandler(ctx echo.Context) (err error) {
-// 	var sess = ctx.Get(constants.AppSessionRequest).(*utils.Session)
-// 	var request = new(comment.Request)
-// 	request.Page = cast.ToInt64(ctx.QueryParam("page"))
-// 	request.PerPage = cast.ToInt64(ctx.QueryParam("perPage"))
-
-// 	if err = ctx.Bind(request); err != nil {
-// 		return sess.ResponseInvalidRequest(ctx, err.Error())
-// 	}
-
-// 	comments, err := h.commentService.ListComment(sess, request)
-// 	if err != nil {
-// 		return sess.ResponseInternalError(ctx, err.Error())
-// 	}
-
-// 	response := utils.CreateHttpResponse(constants.StatusOK, "success!", comments)
-// 	return sess.ResponseOK(ctx, response)
-
-// }

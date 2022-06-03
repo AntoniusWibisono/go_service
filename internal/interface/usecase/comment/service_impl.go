@@ -8,13 +8,48 @@ import (
 type service struct {
 	commentRepo domain.CommentsRepository
 	orgsRepo    domain.OrganizationsRepository
+	memberRepo  domain.MembersRepository
 }
 
-func NewService(commentRepo domain.CommentsRepository, orgsRepo domain.OrganizationsRepository) *service {
+func NewService(commentRepo domain.CommentsRepository, orgsRepo domain.OrganizationsRepository, memberRepo domain.MembersRepository) *service {
 	return &service{
 		commentRepo: commentRepo,
 		orgsRepo:    orgsRepo,
+		memberRepo:  memberRepo,
 	}
+}
+
+func (s *service) GetMemberByOrgName(sess *utils.Session, request *MemberRequest) (listResponse ListMemberResponse, err error) {
+	organization, err := s.orgsRepo.GetOrganizationData(request.OrganizationName)
+
+	if err != nil {
+		return
+	}
+
+	members, err := s.memberRepo.GetMemberData(organization.ID)
+
+	if err != nil {
+		return
+	}
+
+	response := make([]Member, 0)
+
+	for _, member := range members {
+		resp := Member{
+			Username:  member.Username,
+			AvatarUrl: member.AvatarUrl,
+			Followers: member.Followers,
+			Following: member.Following,
+		}
+		response = append(response, resp)
+	}
+
+	listResponse = ListMemberResponse{
+		Members: response,
+	}
+
+	return
+
 }
 
 func (s *service) DeleteComments(sess *utils.Session, request *CommentRequest) (response Comment, err error) {
@@ -81,31 +116,3 @@ func (s *service) GetCommentByOrgName(sess *utils.Session, request *CommentReque
 	return
 
 }
-
-// func (s *service) ListComment(sess *utils.Session, request *Request) (list ListCommentResponse, err error) {
-// 	comments, count, err := s.commentRepo.GetListComments(
-// 		request.SearchBy,
-// 		request.SearchValue,
-// 		request.SortBy,
-// 		request.SortType,
-// 		request.Page,
-// 		request.PerPage,
-// 	)
-
-// 	response := make([]Comment, 0)
-
-// 	for _, comment := range comments {
-// 		resp := Comment{
-// 			Comment: comment.Comment,
-// 		}
-// 		response = append(response, resp)
-// 	}
-
-// 	list = ListCommentResponse{
-// 		Comments: response,
-// 		Page:     request.Page,
-// 		PerPage:  request.PerPage,
-// 		Count:    count,
-// 	}
-// 	return
-// }

@@ -23,5 +23,5 @@ func (r *Router) RegisterRoutes() {
 	r.V1Group.DELETE("/orgs/:org-name/comment", r.CommentHandler.DeleteCommentHandler)
 	r.V1Group.POST("/orgs/:org-name/comment", r.CommentHandler.PostNewCommentHandler)
 	r.V1Group.GET("/orgs/:org-name/comment", r.CommentHandler.GetCommentByOrganizationNameHandler)
-	// r.V1Group.GET("/comment", r.CommentHandler.ListCommentHandler)
+	r.V1Group.GET("/orgs/:org-name/members", r.CommentHandler.GetMembersByOrganizationNameHandler)
 }

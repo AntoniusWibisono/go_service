@@ -22,5 +22,5 @@ type Members struct {
 }
 
 type MembersRepository interface {
-	GetMemberData(organizationId string) (member Members, err error)
+	GetMemberData(organizationId string) (member []Members, err error)
 }
