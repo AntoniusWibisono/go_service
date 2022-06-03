@@ -9,7 +9,5 @@ golang service
 4. Golang API SERVICE up and running
 
 ## documentation
-postman collection : 
 [postman collection ](https://documenter.getpostman.com/view/20339531/Uz5GmvHH "Golang Postman Collection")
-
 [service -erd](https://drive.google.com/file/d/1y729nvs1EMa4vUK5xZ5xRIINdEEybeuc/view?usp=sharing "ERD")
